@@ -1,0 +1,8 @@
+extends html_template.pug 
+
+block content 
+    form(action="/add-collection", method="post")
+        | STWÓRZ KOLEKCJE ZDJĘĆ
+        br
+        input#collectionName(type="text", name="collection_name" placeholder="nazwa kolekcji")
+        input(type="submit", value="DODAJ")

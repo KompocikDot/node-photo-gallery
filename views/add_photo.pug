@@ -1,0 +1,9 @@
+extends html_template.pug 
+
+block content 
+    form(action="/add-photo/" + collectionID, method="post" enctype="multipart/form-data")
+        | STWÓRZ KOLEKCJE ZDJĘĆ
+        br
+        input#collectionName(type="text", name="collection_name" placeholder="nazwa kolekcji")
+        input#photos(type="file", name="photos" multiple)
+        input(type="submit", value="DODAJ")

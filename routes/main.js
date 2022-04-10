@@ -1,11 +1,13 @@
 import Router from "express";
 import { authRouter } from "./auth.js";
+import { userRouter } from "./user.js";
 
 const mainRouter = Router();
-mainRouter.use("/auth", authRouter);
 
-mainRouter.get("/", (req, res) => {
-    res.send("wtf")
+mainRouter.get("/", (req, res) =>  {
+    res.render("mainpage.pug", {title: "Mainpage"});
 });
 
-export { mainRouter };
+mainRouter.use("/auth", authRouter);
+mainRouter.use("/", userRouter)
+export {mainRouter};

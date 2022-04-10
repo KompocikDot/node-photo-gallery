@@ -1,0 +1,7 @@
+extends html_template.pug 
+
+block logged_content
+    ul.list-group.list-group-flush
+        each post in posts
+            li.list-group-item
+                a(href="/collection/" + post.id) #{post.collectionName} 

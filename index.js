@@ -1,35 +1,35 @@
-import MongoStore from "connect-mongo"
-import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
 import dotenv from "dotenv";
-import { env } from "process";
 import express from "express";
-import { authRouter } from "./routes/auth.js";
+import getenv from "getenv";
 import { mainRouter } from "./routes/main.js";
 import mongoose from "mongoose";
-import { passport } from "./utils/passportLocalStrategy.js";
+import { passport } from "./utils/passportSetup.js";
 import session from "express-session";
 
+//loads .env
 dotenv.config();
-
-const mognoConnection = await mongoose.connect(env.MONGO_URI);
-
+// connect to db
+await mongoose.connect(getenv("MONGO_URI"));
 
 const APP = express();
-const PORT = env.EXPRESS_PORT || 3000
+const PORT = getenv("EXPRESS_PORT", 3000);
+
 APP.set("view engine", "pug");
 
 APP.use(express.urlencoded({ extended: false }));
 APP.use(express.json());
-APP.use(cookieParser(env.APP_SECRET));
+APP.use(express.static("public"));
+
 APP.use(session({
-    secret: env.APP_SECRET,
+    secret: getenv("APP_SECRET"),
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ client: mongoose.connection.getClient() }),
+    store: MongoStore.create({ client: mongoose.connection.getClient() })
 }));
-
 APP.use(passport.initialize());
 APP.use(passport.session());
-APP.use("/api", mainRouter);
 
+
+APP.use("/", mainRouter);
 APP.listen(PORT, () => console.log(`App listening on port ${PORT}`));
