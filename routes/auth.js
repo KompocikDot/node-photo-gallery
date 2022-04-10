@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { userModel } from "../models/userModel.js";
+import { userModel } from "../models/index.js";
 
 const authRouter = Router();
 

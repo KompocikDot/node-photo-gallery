@@ -1,23 +1,22 @@
+import { isLoggedIn, upload } from "../utils/index.js";
+import { photoCollectionModel, userPhoto } from "../models/index.js";
+
 import Router from "express";
-import { isLogggedIn } from "../utils/isLoggedIn.js";
 import mongoose from "mongoose";
-import { photoCollectionModel } from "../models/photoCollectionModel.js";
-import { upload } from "../utils/customStorage.js";
-import { userPhoto } from "../models/userPhotos.js";
 
 const userRouter = Router();
 
 
-userRouter.get("/posts", isLogggedIn, async (req, res) => {
+userRouter.get("/posts", isLoggedIn, async (req, res) => {
     const posts = await photoCollectionModel.find({});
     res.render("logged", { posts });
 });
 
-userRouter.get("/add-collection", isLogggedIn, (req, res) => {
+userRouter.get("/add-collection", isLoggedIn, (req, res) => {
     res.render("add_collection");
 });
 
-userRouter.post("/add-collection", isLogggedIn, (req, res) => {
+userRouter.post("/add-collection", isLoggedIn, (req, res) => {
     const collection = new photoCollectionModel({
         collectionName: req.body.collection_name,
         collectionOwner: req.user.id
@@ -28,7 +27,8 @@ userRouter.post("/add-collection", isLogggedIn, (req, res) => {
 });
 
 userRouter.get("/collection/:id", async (req, res) => {
-    const collectionData = await userPhoto.findById({ photoCollection: req.params.id });
+    console.log(req.params.id)
+    const collectionData = await userPhoto.find({ photoCollection: mongoose.mongo.ObjectId(req.params.id) });
     res.render("collection_page", { collectionData });
 });
 
@@ -36,8 +36,17 @@ userRouter.get("/add-photo/:collectionID", (req, res) => {
     res.render("add_photo", { collectionID: req.params.collectionID });
 });
 
-userRouter.post("/add-photo/:collectionID", upload.array("photos", 30), (req, res) => {
-    console.log(req.body);
+userRouter.post("/add-photo/:collectionID", upload.array("photos", 30), async (req, res) => {
+    const photoObjects = [];
+    req.files.forEach(file => {
+        photoObjects.push({
+            photoOwner: req.user.id,
+            photoPath: `/photo/${req.params.collectionID}/${file.originalname}`,
+            photoCollection: req.params.collectionID
+        });   
+    });
+    
+    await userPhoto.insertMany(photoObjects);
     res.sendStatus(200);
 });
 

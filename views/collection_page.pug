@@ -1,0 +1,5 @@
+block logged_content
+    ul.list-group.list-group-flush
+        each post in collectionData
+            li.list-group-item
+                a(href="/collection/" + post.id) #{post} 

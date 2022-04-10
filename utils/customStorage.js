@@ -3,12 +3,13 @@ import { existsSync, mkdirSync } from "fs";
 import multer from "multer";
 
 const customStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const filedir = `./photos/${req.params.collectionID}`;
-        if (!existsSync()) {
+    destination: (req, _, cb) => {
+        const filedir = `./photoStorage/${req.params.collectionID}`;
+        if (!existsSync(filedir)) {
             mkdirSync(filedir);
         }
         cb(null, filedir);
+        
     },
 
     filename: (_, file, cb) => {
