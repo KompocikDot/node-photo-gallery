@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import passport_local_mongoose from "passport-local-mongoose";
+
 const {Schema, model} = mongoose;
 
 const userSchema = new Schema({

@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const {Schema, model, ObjectId} = mongoose;
 
 const userPhotoSchema = new Schema({
-    photoOwner: ObjectId,
     photoPath: String,
     photoCollection: ObjectId,
 });

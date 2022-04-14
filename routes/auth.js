@@ -12,12 +12,12 @@ authRouter.post("/register", (req, res) => {
     userModel.register(
         new userModel({username: req.body.username}),
         req.body.password,
-        (err, acc) => {
+        (err) => {
             if (err) {
-                return res.render('register_page', { error: err });
+                return res.render("register_page", { error: err });
             }
-            passport.authenticate('local')(req, res, () => {
-                res.redirect('../posts');
+            passport.authenticate("local")(req, res, () => {
+                res.redirect("../posts");
             });
         });
 });
@@ -27,7 +27,7 @@ authRouter.get("/login", (req, res) => {
 });
 
 authRouter.post("/login", passport.authenticate("local", { failureRedirect: "./login" }), (req, res) => {
-    res.redirect("/posts")
+    res.redirect("/posts");
 });
 
 authRouter.get("/logout", (req, res) => {

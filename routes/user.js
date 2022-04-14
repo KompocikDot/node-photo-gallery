@@ -27,27 +27,27 @@ userRouter.post("/add-collection", isLoggedIn, (req, res) => {
 });
 
 userRouter.get("/collection/:id", async (req, res) => {
-    console.log(req.params.id)
     const collectionData = await userPhoto.find({ photoCollection: mongoose.mongo.ObjectId(req.params.id) });
-    res.render("collection_page", { collectionData });
+    res.render("collection_page", { collectionData: collectionData, id: req.params.id });
 });
 
 userRouter.get("/add-photo/:collectionID", (req, res) => {
     res.render("add_photo", { collectionID: req.params.collectionID });
 });
 
-userRouter.post("/add-photo/:collectionID", upload.array("photos", 30), async (req, res) => {
-    const photoObjects = [];
-    req.files.forEach(file => {
-        photoObjects.push({
-            photoOwner: req.user.id,
-            photoPath: `/photo/${req.params.collectionID}/${file.originalname}`,
-            photoCollection: req.params.collectionID
-        });   
-    });
-    
+userRouter.post("/add-photo/:collectionID", upload.array("photos", 30), async (req, res) => {  
+    let photoObjects = req.files.map(file => ({
+        photoPath: `/photo/${req.params.collectionID}/${file.originalname}`,
+        photoCollection: req.params.collectionID
+    }));
+
     await userPhoto.insertMany(photoObjects);
     res.sendStatus(200);
+});
+
+userRouter.delete("/photo/:photoId", async (req, res) => {
+    await userPhoto.findByIdAndDelete(req.params.photoId);
+    res.redirect("back");
 });
 
 export {userRouter};

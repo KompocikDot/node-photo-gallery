@@ -9,5 +9,5 @@ mainRouter.get("/", (req, res) =>  {
 });
 
 mainRouter.use("/auth", authRouter);
-mainRouter.use("/", userRouter)
-export {mainRouter};
+mainRouter.use("/", userRouter);
+export { mainRouter };
