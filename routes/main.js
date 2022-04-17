@@ -5,7 +5,7 @@ import { userRouter } from "./user.js";
 const mainRouter = Router();
 
 mainRouter.get("/", (req, res) =>  {
-    res.render("mainpage.pug", {title: "Mainpage"});
+    res.render("mainpage", { title: "Mainpage", user: req.user });
 });
 
 mainRouter.use("/auth", authRouter);

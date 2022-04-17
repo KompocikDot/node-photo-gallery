@@ -1,0 +1,87 @@
+.navbar {
+    background-color: #262526 !important;
+    color: #D9D7D7;
+}
+
+.navbar-brand {
+    color: #F2D750 !important;
+}
+
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+#carouselExampleIndicators {
+    background-color: #262526;
+}
+
+.custom-card, .reverse.del-btn, .del-btn {
+    border-radius: 0 !important;
+}
+
+.del-btn {
+    background-color: #F2D750;
+    color: white !important;
+    border-color: #F2D750;
+}
+
+.del-btn:hover {
+    color: #F2D750 !important;
+    background-color: white;
+    border-color: #F2D750;
+}
+
+.post-btn {
+    color: #262526 !important;
+    word-spacing: 4px;
+}
+
+.post-btn:hover {
+    color: #262526 !important;
+    word-spacing: 4px;
+}
+
+.reverse-del-btn {
+    color: #F2D750 !important;
+    background-color: white !important;
+    border-radius: 0 !important;
+    border-color: #F2D750;
+}
+
+.reverse-del-btn:hover {
+    background-color: #F2D750 !important;
+    color: white !important;
+    border-radius: 0 !important;
+    border-color: #F2D750;
+}
+
+.delete-photo-btn {
+    background-color: #D98B48 !important;
+    border-color: #D98B48 !important;
+    color: white !important;
+    border-radius: 0 !important;
+}
+
+.delete-photo-btn:hover {
+    color: #D98B48 !important;
+    border-color: #D98B48 !important;
+    background-color: white !important;
+}
+
+#photosDiv, #deleteWarning {
+    display: none;
+}
+
+.overFlowingRow {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.overFlowingRowRight {
+    margin-right: auto;
+}

@@ -5,7 +5,7 @@ import { userModel } from "../models/index.js";
 const authRouter = Router();
 
 authRouter.get("/register", (req, res) => {
-    res.render("register_page");
+    res.render("login_register", { action: "register", user: req.user });
 });
 
 authRouter.post("/register", (req, res) => {
@@ -14,7 +14,8 @@ authRouter.post("/register", (req, res) => {
         req.body.password,
         (err) => {
             if (err) {
-                return res.render("register_page", { error: err });
+                console.log(err);
+                return res.render("login_register", { error: err, action: "register", user: req.user });
             }
             passport.authenticate("local")(req, res, () => {
                 res.redirect("../posts");
@@ -23,10 +24,10 @@ authRouter.post("/register", (req, res) => {
 });
 
 authRouter.get("/login", (req, res) => {
-    res.render("login");
+    res.render("login_register", {"title": "eee test", action: "login", user: req.user });
 });
 
-authRouter.post("/login", passport.authenticate("local", { failureRedirect: "./login" }), (req, res) => {
+authRouter.post("/login", passport.authenticate("local", { failureRedirect: "./login" }), (_, res) => {
     res.redirect("/posts");
 });
 

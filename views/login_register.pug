@@ -1,0 +1,23 @@
+extends html_template.pug 
+
+block content
+    .row.align-items-center.py-5.justify-content-center
+        .col.custom-card
+            form.p-4.p-md-5.border.rounded-3.bg-light.custom-card(method="POST", action="/auth/" + action)
+                if action == "register"
+                    h1.mb-3.font-weight-normal PLEASE SIGN UP
+                else
+                    h1.font-weight-normal PLEASE SIGN IN
+                br
+                .form-floating.mb-3
+                    input#floatingInput.form-control.custom-card(type='text' placeholder='michael_swordman' name="username" required)
+                    label(for='floatingInput') Username
+                .form-floating.mb-3
+                    input#floatingPassword.form-control.custom-card(type='password' placeholder='Password' name="password" required)
+                    label(for='floatingPassword') Password
+                if action === "register"
+                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN UP")
+                    hr.my-4
+                    small.text-muted By clicking Sign up, you agree to the terms of use.
+                else 
+                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN IN")

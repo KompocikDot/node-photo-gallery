@@ -1,20 +1,28 @@
 extends html_template.pug
 
 block logged_content
+    br
+    .row.text-center
+        .col
+            h3 COLLECTION: #{collectionMetaData.collectionName}
+    br
     if collectionData.length > 0
         #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
             .carousel-indicators
-                button.active(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
-                button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='1' aria-label='Slide 2')
-                button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='2' aria-label='Slide 3')
+                each photo, index in collectionData
+                    if index == 0
+                        button.active(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
+                    else 
+                        button(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide-to=index aria-label='Slide' + index + 1)
+
             .carousel-inner
                 each photo, index in collectionData
                     if index == 0
                         .carousel-item.active
-                            img.d-block.w-100(src=photo.photoPath height="400" width="400")
+                            img.d-block.w-100(src=photo.photoPath style="max-width:100%; height: 50vh; object-fit: contain;")
                     else
                         .carousel-item
-                            img.d-block.w-100(src=photo.photoPath height="400" width="400")
+                            img.d-block.w-100(src=photo.photoPath style="max-width:100%; height: 50vh; object-fit: contain;")
             button.carousel-control-prev(type='button' data-bs-target='#carouselExampleIndicators' data-bs-slide='prev')
                 span.carousel-control-prev-icon(aria-hidden='true')
                 span.visually-hidden Previous
@@ -22,5 +30,39 @@ block logged_content
                 span.carousel-control-next-icon(aria-hidden='true')
                 span.visually-hidden Next
 
-    else 
-        a(href="/add-photo/" + id) DODAJ ZDJĘCIA DO KOLEKCJI
+
+
+    if user.id == collectionMetaData.collectionOwner
+        br
+        .row.text-center(style="margin-left: auto; margin-right: auto")
+            a.col-md-4.btn.btn-outline-success.del-btn#add-photo(href="/photo/" + id) ADD NEW PHOTOS
+            button.col-md-4.btn.btn-outline-secondary.reverse-del-btn#show-deletion-div SHOW PHOTOS LIST
+            button.col-md-4.btn.btn-outline-danger.del-btn#delete-collection(type="button" data-bs-toggle='modal' data-bs-target='#staticBackdrop') DELETE COLLECTION
+        br
+
+    #photosDiv
+        each photo, index in collectionData
+            .row.photoDelRow.overFlowingRow.my-1
+                br
+                .card.col-md-8.custom-card
+                    .card-body
+                        - let tempPhoto = photo.photoPath.split("/");
+                        div #{tempPhoto[tempPhoto.length - 1]}
+                a.del-btn.align-center.btn.col-md-4.btn.btn-outline-danger.delete-photo-btn(href="/delete-photo/" + photo._id) DELETE
+        else
+            h1 IT'S EMPTY HERE, WAIT UNTIL SOMEBODY ADDS SOMETHING HERE
+
+    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog
+            .modal-content.custom-card
+                .modal-header
+                    h5#staticBackdropLabel.modal-title Are you sure?
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    | After deleting collection you cannot restore photos
+                .modal-footer
+                    button.btn.btn-outline-secondary.del-btn(type='button' data-bs-dismiss='modal') DIMISS
+                    a.btn.btn-outline-danger.delete-photo-btn(href='/delete-collection/' + collectionMetaData._id) DELETE
+
+
+    script(src="/collectionCustomActions.js")

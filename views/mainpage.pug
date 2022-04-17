@@ -1,10 +1,32 @@
 extends html_template.pug
 
-block html_title
-    title #{title}
-
 block content
-    .row.text-center
-        .feature.col eee
-        .feature.col eee
-        .feature.col eee
+    if !user
+        .container.col-xl-10.col-xxl-8.px-4.py-5
+        .row.align-items-center.g-lg-5.py-5
+            .col-lg-7.text-center.text-lg-start
+                h1.display-4.fw-bold.lh-1.mb-3 Photo gallery
+                p.col-lg-10.fs-4
+                    | Best gallery ever to store your images as collections completly for free!
+            .col-md-10.mx-auto.col-lg-5.custom-card
+                form.p-4.p-md-5.border.rounded-3.bg-light.custom-card(method="POST", action="/auth/register")
+                    .form-floating.mb-3
+                        input#floatingInput.form-control.custom-card(type='text' placeholder='michael_swordman' name="username" required)
+                        label(for='floatingInput') Username
+                    .form-floating.mb-3
+                        input#floatingPassword.form-control.custom-card(type='password' placeholder='Password' name="password" required)
+                        label(for='floatingPassword') Password
+                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN UP")
+                    hr.my-4
+                    small.text-muted By clicking Sign up, you agree to the terms of use.
+    else 
+            .row.overFlowingRow.text-center.py-5
+                h1.col DID KNOW THAT...
+                br
+            .row.overFlowingRow.text-center.py-5.mx-3
+                .col-3.card-body
+                    | ON AVERAGE, 95 MILLION PHOTOS ARE UPLOADED DAILY ON INSTAGRAM. OVER 300 MILLION PHOTOS ARE UPLOADED TO FACEBOOK EVERY DAY.
+                .col-3.card-body
+                    | THE FIRST COLOR PHOTOGRAPH WAS TAKEN IN 1861. IT WAS DONE BY THOMAS SUTTON AND IT WAS THE RESULT OF OF LAYERING THREE SEPARATE IMAGES OF RED, GREEN, AND BLUE FILTERS.
+                .col-3.card-body
+                    | THE FIRST PROJECTED IMAGE WAS THROUGH A CAMERA OBSCURA. IT IS A LITERAL TRANSLATION FROM LATIN, MEANING DARK ROOM. THE PRINCIPLE WAS FIRST RECORDED BY MOZI, A CHINESE PHILOSOPHER, BETWEEN 470 TO 391 BCE. ONE OF THE INTERESTING CAMERA OBSCURA FACTS IS THAT THE REFLECTED IMAGE WAS UPSIDE DOWN.

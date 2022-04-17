@@ -1,9 +1,11 @@
 extends html_template.pug 
 
 block content 
-    form(action="/add-photo/" + collectionID, method="post" enctype="multipart/form-data")
-        | STWÓRZ KOLEKCJE ZDJĘĆ
-        br
-        input#collectionName(type="text", name="collection_name" placeholder="nazwa kolekcji")
-        input#photos(type="file", name="photos" multiple)
-        input(type="submit", value="DODAJ")
+    br
+    .row
+        h3.col.text-center ADD PHOTOS TO EXISTING COLLECTION
+    br
+    form.row.overFlowingRowRight(action="/photo/" + collectionID, method="post" enctype="multipart/form-data")
+        .col-md-9
+            input.form-control.custom-card#collectionName(type="file", name="photos" required multiple)
+        input.btn.btn-outline-success.del-btn.col-md-3(type='submit', value="ADD")
