@@ -4,6 +4,3 @@
 
 ## todo 
 - routes permissions
-- redirect to login when user is registered
-- register and login errors handling (FE)
-- username on the navbar right corner

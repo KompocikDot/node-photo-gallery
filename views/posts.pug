@@ -6,6 +6,9 @@ block logged_content
             h3.col.text-center AVAILABLE COLLECTIONS
     br
     each post in posts
-        .row.overFlowingRow.py-1
+        .row.overFlowingRow.my-1
             a.col-10.btn.btn-outline-secondary.del-btn.post-btn(href="/collection/" + post._id) #{post.collectionName.toUpperCase()}
             .col-2.btn.btn-outline.disabled CREATED BY: #{post.user_id[0].username.toUpperCase()}
+    else 
+        .row
+            .col.text-center NO COLLECTIONS AVAILABLE

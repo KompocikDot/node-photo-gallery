@@ -10,13 +10,13 @@ html(lang="en")
         title #{title}
     body 
         .container
-            nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.d-flex.justify-content-evenly.sticky-top
-                .container
+            nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.d-flex.sticky-top
+                .container.d-flex
                     a.navbar-brand(href='/') PHOTO GALLERY
                     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
                         span.navbar-toggler-icon
                     #navbarNav.collapse.navbar-collapse
-                        ul.navbar-nav
+                        ul.navbar-nav.me-auto
                             li.nav-item
                                 a.nav-link.active(aria-current='page' href='/') HOME
                             
@@ -32,6 +32,11 @@ html(lang="en")
                                     a.nav-link(href='/add-collection') NEW COLLECTION
                                 li.nav-item 
                                     a.nav-link(href="/auth/logout") LOGOUT
-            
+                        
+                        if user
+                            ul.navbar-nav
+                                li.nav-item
+                                    .nav-link USER: #{user.username.toUpperCase()}
+
             block content
             block logged_content

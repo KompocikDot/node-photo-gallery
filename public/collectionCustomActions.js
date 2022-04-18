@@ -3,7 +3,6 @@ const collectionDeletionBtn = document.querySelector("#delete-collection");
 const photosDiv = document.querySelector("#photosDiv");
 const deleteWarnDiv = document.querySelector("#deleteWarning");
 const denyDelete = document.querySelector("#denyDelete");
-const confirmDelete = document.querySelector("#confirmDelete");
 
 photoDeletionBtn.addEventListener("click", () => {
     if (photosDiv.style.display === "none" || photosDiv.style.display === "") {
@@ -23,4 +22,4 @@ collectionDeletionBtn.addEventListener("click", () => {
     }
 });
 
-denyDelete.addEventListener("click", () => {deleteWarnDiv.style.display = "none"});
+denyDelete.addEventListener("click", () => {deleteWarnDiv.style.display = "none";});

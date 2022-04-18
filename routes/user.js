@@ -38,13 +38,13 @@ userRouter.post("/add-collection", isLoggedIn, (req, res) => {
     res.redirect("/posts");
 });
 
-userRouter.get("/collection/:id", async (req, res) => {
+userRouter.get("/collection/:id", isLoggedIn, async (req, res) => {
     const collectionData = await userPhoto.find({ photoCollection: req.params.id });
     const collectionMetaData = await photoCollectionModel.findById(req.params.id);
     res.render("collection_page", { collectionData, collectionMetaData, id: req.params.id, user: req.user });
 });
 
-userRouter.get("/photo/:collectionID", async (req, res) => {
+userRouter.get("/photo/:collectionID", isLoggedIn, async (req, res) => {
     res.render("add_photo", { collectionID: req.params.collectionID, user: req.user });
 });
 
@@ -58,14 +58,14 @@ userRouter.post("/photo/:collectionID", [isLoggedIn, upload.array("photos", 30)]
     res.redirect(`/collection/${req.params.collectionID}`);
 });
 
-userRouter.get("/delete-photo/:photoId", async (req, res) => {
+userRouter.get("/delete-photo/:photoId", isLoggedIn, async (req, res) => {
     const deleted = await userPhoto.findByIdAndDelete(req.params.photoId);
     unlinkSync(path.join(process.cwd(), deleted.photoPath.replace("photo", "photoStorage")));
     
     res.redirect("back");
 });
 
-userRouter.get("/delete-collection/:id", async (req, res) => {
+userRouter.get("/delete-collection/:id", isLoggedIn, async (req, res) => {
     await photoCollectionModel.findByIdAndDelete(req.params.id);
     const deletedPhotos = await userPhoto.find({photoCollection: req.params.id});
     await userPhoto.deleteMany({photoCollection: req.params.id});

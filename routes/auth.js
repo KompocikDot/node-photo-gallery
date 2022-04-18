@@ -12,10 +12,14 @@ authRouter.post("/register", (req, res) => {
     userModel.register(
         new userModel({username: req.body.username}),
         req.body.password,
-        (err) => {
-            if (err) {
-                console.log(err);
-                return res.render("login_register", { error: err, action: "register", user: req.user });
+        (error) => {
+            if (error) {
+                if (req.headers.referer.includes("/register")) {
+                    return res.render("login_register", { message: error, action: "register", user: req.user });
+                } 
+                else {
+                    return res.render("mainpage", { message: error, action: "register", user: req.user });
+                }
             }
             passport.authenticate("local")(req, res, () => {
                 res.redirect("../posts");
@@ -27,7 +31,11 @@ authRouter.get("/login", (req, res) => {
     res.render("login_register", {"title": "eee test", action: "login", user: req.user });
 });
 
-authRouter.post("/login", passport.authenticate("local", { failureRedirect: "./login" }), (_, res) => {
+authRouter.get("/login/incorrect", (req, res) => {
+    res.render("login_register", {message: new Error( "Password or username is incorrect"), "title": "eee test", action: "login", user: req.user });
+});
+
+authRouter.post("/login", passport.authenticate("local", {failureRedirect: "/auth/login/incorrect"}), (_, res) => {
     res.redirect("/posts");
 });
 

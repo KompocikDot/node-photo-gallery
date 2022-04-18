@@ -37,6 +37,9 @@
 }
 
 .post-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #262526 !important;
     word-spacing: 4px;
 }
@@ -61,6 +64,9 @@
 }
 
 .delete-photo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #D98B48 !important;
     border-color: #D98B48 !important;
     color: white !important;
@@ -84,4 +90,23 @@
 
 .overFlowingRowRight {
     margin-right: auto;
+}
+
+.fact-card {
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+    border: 1px solid #F2D750;
+    margin: 2px;
+}
+
+.fact-card:hover {
+    background-color: #F2D750;
+    color: white;
+    -webkit-transition: background-color .15s ease-in-out;
+    -ms-transition: background-color .15s ease-in-out;
+    transition: background-color .15s ease-in-out;
+    transition: box-shadow .15s ease-in-out;
+    -webkit-transition: box-shadow .15s ease-in-out;
+    -ms-transition: box-shadow .15s ease-in-out;
 }

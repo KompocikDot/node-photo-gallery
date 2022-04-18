@@ -12,12 +12,14 @@ block content
                 .form-floating.mb-3
                     input#floatingInput.form-control.custom-card(type='text' placeholder='michael_swordman' name="username" required)
                     label(for='floatingInput') Username
+                    if message
+                        .invalid-feedback(style="display: block") #{message.message}
                 .form-floating.mb-3
                     input#floatingPassword.form-control.custom-card(type='password' placeholder='Password' name="password" required)
                     label(for='floatingPassword') Password
                 if action === "register"
-                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN UP")
+                    input.w-100.btn.btn-lg.btn-outline-secondary.del-btn(type='submit' value="SIGN UP")
                     hr.my-4
                     small.text-muted By clicking Sign up, you agree to the terms of use.
                 else 
-                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN IN")
+                    input.w-100.btn.btn-lg.btn-outline-secondary.del-btn(type='submit' value="SIGN IN")

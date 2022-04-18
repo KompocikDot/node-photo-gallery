@@ -4,7 +4,7 @@ block logged_content
     br
     .row.text-center
         .col
-            h3 COLLECTION: #{collectionMetaData.collectionName}
+            h3 COLLECTION: #{collectionMetaData.collectionName.toUpperCase()}
     br
     if collectionData.length > 0
         #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
@@ -35,11 +35,22 @@ block logged_content
     if user.id == collectionMetaData.collectionOwner
         br
         .row.text-center(style="margin-left: auto; margin-right: auto")
-            a.col-md-4.btn.btn-outline-success.del-btn#add-photo(href="/photo/" + id) ADD NEW PHOTOS
+            a.col-md-4.btn.btn-outline-secondary.del-btn#add-photo(href="/photo/" + id) ADD NEW PHOTOS
             button.col-md-4.btn.btn-outline-secondary.reverse-del-btn#show-deletion-div SHOW PHOTOS LIST
-            button.col-md-4.btn.btn-outline-danger.del-btn#delete-collection(type="button" data-bs-toggle='modal' data-bs-target='#staticBackdrop') DELETE COLLECTION
+            button.col-md-4.btn.btn-outline-secondary.del-btn#delete-collection(type="button" data-bs-toggle='modal' data-bs-target='#staticBackdrop') DELETE COLLECTION
         br
 
+        #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+            .modal-dialog
+                .modal-content.custom-card
+                    .modal-header
+                        h5#staticBackdropLabel.modal-title Are you sure?
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                        | After deleting collection you cannot restore photos
+                    .modal-footer
+                        button.btn.btn-outline-secondary.del-btn(type='button' data-bs-dismiss='modal') DIMISS
+                        a.btn.btn-outline-secondary.delete-photo-btn(href='/delete-collection/' + collectionMetaData._id) DELETE
     #photosDiv
         each photo, index in collectionData
             .row.photoDelRow.overFlowingRow.my-1
@@ -48,21 +59,12 @@ block logged_content
                     .card-body
                         - let tempPhoto = photo.photoPath.split("/");
                         div #{tempPhoto[tempPhoto.length - 1]}
-                a.del-btn.align-center.btn.col-md-4.btn.btn-outline-danger.delete-photo-btn(href="/delete-photo/" + photo._id) DELETE
-        else
-            h1 IT'S EMPTY HERE, WAIT UNTIL SOMEBODY ADDS SOMETHING HERE
-
-    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
-        .modal-dialog
-            .modal-content.custom-card
-                .modal-header
-                    h5#staticBackdropLabel.modal-title Are you sure?
-                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                .modal-body
-                    | After deleting collection you cannot restore photos
-                .modal-footer
-                    button.btn.btn-outline-secondary.del-btn(type='button' data-bs-dismiss='modal') DIMISS
-                    a.btn.btn-outline-danger.delete-photo-btn(href='/delete-collection/' + collectionMetaData._id) DELETE
+                a.del-btn.align-center.btn.col-md-4.btn.btn-outline-secondary.delete-photo-btn(href="/delete-photo/" + photo._id) DELETE
+        
+    if user.id != collectionMetaData.collectionOwner && collectionData.length == 0
+        .row 
+        .col.text-center IT'S EMPTY HERE, WAIT UNTIL COLLECTION OWNER ADDS SOMETHING HERE
+        
 
 
     script(src="/collectionCustomActions.js")

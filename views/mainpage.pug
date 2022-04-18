@@ -13,20 +13,32 @@ block content
                     .form-floating.mb-3
                         input#floatingInput.form-control.custom-card(type='text' placeholder='michael_swordman' name="username" required)
                         label(for='floatingInput') Username
+                        if message
+                            .invalid-feedback(style="display: block") Username already exists.
+                        else
+                            .invalid-feedback Username already exists.
                     .form-floating.mb-3
                         input#floatingPassword.form-control.custom-card(type='password' placeholder='Password' name="password" required)
                         label(for='floatingPassword') Password
-                    input.w-100.btn.btn-lg.btn-outline-success.del-btn(type='submit' value="SIGN UP")
+                    input.w-100.btn.btn-lg.btn-outline-secondary.del-btn(type='submit' value="SIGN UP")
                     hr.my-4
                     small.text-muted By clicking Sign up, you agree to the terms of use.
+    
     else 
             .row.overFlowingRow.text-center.py-5
-                h1.col DID KNOW THAT...
+                h1.col DID YOU KNOW THAT...
                 br
-            .row.overFlowingRow.text-center.py-5.mx-3
-                .col-3.card-body
+            .row.overFlowingRow.text-center.pt-3
+                .col-3.card-body.fact-card
                     | ON AVERAGE, 95 MILLION PHOTOS ARE UPLOADED DAILY ON INSTAGRAM. OVER 300 MILLION PHOTOS ARE UPLOADED TO FACEBOOK EVERY DAY.
-                .col-3.card-body
+                .col-3.card-body.fact-card
                     | THE FIRST COLOR PHOTOGRAPH WAS TAKEN IN 1861. IT WAS DONE BY THOMAS SUTTON AND IT WAS THE RESULT OF OF LAYERING THREE SEPARATE IMAGES OF RED, GREEN, AND BLUE FILTERS.
-                .col-3.card-body
+                .col-3.card-body.fact-card
                     | THE FIRST PROJECTED IMAGE WAS THROUGH A CAMERA OBSCURA. IT IS A LITERAL TRANSLATION FROM LATIN, MEANING DARK ROOM. THE PRINCIPLE WAS FIRST RECORDED BY MOZI, A CHINESE PHILOSOPHER, BETWEEN 470 TO 391 BCE. ONE OF THE INTERESTING CAMERA OBSCURA FACTS IS THAT THE REFLECTED IMAGE WAS UPSIDE DOWN.
+            .row.overFlowingRow.text-center.pt-1
+                .col-3.card-body.fact-card
+                    | THE OLDEST CAMERA WAS SOLD AT THE AUCTION IN VIENNA IN 2007, SETTING ALL-TIME OVERALL RECORD AND HAVING BECOME THE MOST EXPENSIVE CAMERA EVER SOLD AT AUCTION. RARITY CALLED “DAGUERROTYPE SUSSES FRERES” WASSOLD FOR NEARLY EIGHT HUNDRED THOUSAND U.S. DOLLARS.
+                .col-3.card-body.fact-card
+                    | THE FIRST CASSETTE – ONE OF THE PROTOTYPES OF MODERN PHOTOGRAPHIC FILM – WHICH HAD 12 SHEETS OF LIGHT-SENSITIVE PAPER, AND, RESPECTIVELY, 12 SHOTS, WEIGHED 15 (!) POUNDS.
+                .col-3.card-body.fact-card
+                    | THE WORD “PHOTOGRAPHY” COMES FROM THE GREEK, MEANING TO DRAW WITH LIGHT. THE EARLIEST KNOWN USE OF THE WORD PHOTOGRAPH AS WE KNOW IT WAS IN 1839 BY THE ASTRONOMER SIR JOHN HERSCHEL.
