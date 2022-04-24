@@ -61,7 +61,17 @@ userRouter.post("/photo/:collectionID", [isLoggedIn, upload.array("photos", 30)]
 userRouter.get("/delete-photo/:photoId", isLoggedIn, async (req, res) => {
     const deleted = await userPhoto.findByIdAndDelete(req.params.photoId);
     unlinkSync(path.join(process.cwd(), deleted.photoPath.replace("photo", "photoStorage")));
-    
+    res.redirect("back");
+});
+
+userRouter.get("/edit-collection/:id", isLoggedIn, async (req, res) => {
+    const collectionData = await photoCollectionModel.findById(req.params.id);
+    res.render("edit_collection", {"name": collectionData.collectionName, id: req.params.id});
+});
+
+userRouter.post("/edit-collection/:id", isLoggedIn, async (req, res) => {
+    const re = await photoCollectionModel.findByIdAndUpdate(req.params.id, {"collectionName": req.body.collection_name});
+    console.log(re);
     res.redirect("back");
 });
 

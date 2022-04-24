@@ -1,0 +1,11 @@
+extends html_template.pug 
+
+block content 
+    br
+    .row
+        h3.col.text-center EDIT COLLECTION: #{name}
+    br
+    form.row.overFlowingRowRight(action="/edit-collection/" + id, method="post")
+        .col-md-9
+            input.form-control.custom-card#collectionName(type="text", value=name, name="collection_name" placeholder="New collection name", required)
+        input.btn.btn-outline-secondary.del-btn.col-md-3(type="submit", value="UPDATE")

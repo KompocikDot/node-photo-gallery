@@ -3,8 +3,10 @@ extends html_template.pug
 block logged_content
     br
     .row.text-center
-        .col
+        .col-md-4
+        .col-md-4
             h3 COLLECTION: #{collectionMetaData.collectionName.toUpperCase()}
+        .col-md-4
     br
     if collectionData.length > 0
         #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
@@ -35,9 +37,10 @@ block logged_content
     if user.id == collectionMetaData.collectionOwner
         br
         .row.text-center(style="margin-left: auto; margin-right: auto")
-            a.col-md-4.btn.btn-outline-secondary.del-btn#add-photo(href="/photo/" + id) ADD NEW PHOTOS
-            button.col-md-4.btn.btn-outline-secondary.reverse-del-btn#show-deletion-div SHOW PHOTOS LIST
-            button.col-md-4.btn.btn-outline-secondary.del-btn#delete-collection(type="button" data-bs-toggle='modal' data-bs-target='#staticBackdrop') DELETE COLLECTION
+            a.col-md-3.btn.btn-outline-secondary.del-btn#add-photo(href="/photo/" + id) ADD NEW PHOTOS
+            button.col-md-3.btn.btn-outline-secondary.reverse-del-btn#show-deletion-div SHOW PHOTOS LIST
+            a.col-md-3.btn.btn-outline-secondary.del-btn#edit-collection(href="/edit-collection/" + collectionMetaData._id) EDIT COLLECTION
+            button.col-md-3.btn.btn-outline-secondary.reverse-del-btn#delete-collection(type="button" data-bs-toggle='modal' data-bs-target='#staticBackdrop') DELETE COLLECTION
         br
 
         #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
@@ -55,11 +58,11 @@ block logged_content
         each photo, index in collectionData
             .row.photoDelRow.overFlowingRow.my-1
                 br
-                .card.col-md-8.custom-card
+                .card.col-md-9.custom-card
                     .card-body
                         - let tempPhoto = photo.photoPath.split("/");
                         div #{tempPhoto[tempPhoto.length - 1]}
-                a.del-btn.align-center.btn.col-md-4.btn.btn-outline-secondary.delete-photo-btn(href="/delete-photo/" + photo._id) DELETE
+                a.del-btn.align-center.btn.col-md-3.btn.btn-outline-secondary.delete-photo-btn(href="/delete-photo/" + photo._id) DELETE
         
     if user.id != collectionMetaData.collectionOwner && collectionData.length == 0
         .row 
